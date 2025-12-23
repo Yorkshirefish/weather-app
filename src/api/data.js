@@ -6,7 +6,7 @@ import { API_key } from "./api-key";
 async function fetchWeatherData(lon, lat) {
     
     //This uses the longitude and latitude parameters to gather data from a server
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_key}`)
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_key}&units=metric`)
     
     //If the data doesn't work, then it will throw an error
     if(!response.ok) {
