@@ -1,6 +1,4 @@
-const API_key = "";
-
-
+import { API_key } from "./api-key";
 
 
 
