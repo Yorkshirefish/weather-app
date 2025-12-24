@@ -21,7 +21,7 @@ function WeatherComponent() {
                 const weatherData = await fetchLocationData(location);
                 setData(weatherData);
             } catch(e) {
-                setHasError("Something went wrong");
+                setHasError("Something went wrong, please try again");
             } finally {
                 setIsLoading(false);
             }    
@@ -34,11 +34,25 @@ function WeatherComponent() {
     }, [location])
 
     if(isLoading) {
-        return <p>Loading...</p>;
+        return (
+            <div className="weather-container">
+                <h1>The Weather</h1>
+                <p className="loading-message">Loading...</p>
+            </div>
+        )
     }
 
     if(hasError) {
-        return <p>{hasError}</p>;
+        return (
+            <div className="weather-container">
+                <h1>The Weather</h1>
+                <p className="error-message">{hasError}</p>
+                <form onSubmit={handleSearchSubmit}>
+                    <input required type="text" placeholder="Search for location..." value={newLocation} onChange={handleLocationChange}/>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        );
     }
 
     if(!data) {
@@ -65,20 +79,22 @@ function WeatherComponent() {
 
 
     return (
-        <div>
+        <div className="weather-container" >
             <h1>The Weather</h1>
-            <h2>This is the weather for {data.name}</h2>
             <form onSubmit={handleSearchSubmit}>
                 <input required type="text" placeholder="Search for location..." value={newLocation} onChange={handleLocationChange}/>
                 <button type="submit">Search</button>
             </form>
-            <div>
+            <h2>This is the weather for <span>{data.name}</span></h2>
+            <div className="weather-details">
                 <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="" />
-                <p>{data.weather[0].main}</p>
-                <p>Temperature: {Math.round(data.main.temp)}℃</p>
-                <p>Feels like: {Math.round(data.main.feels_like)}</p>
-                <p>Low: {Math.round(data.main.temp_min)}℃</p>
-                <p>High: {Math.round(data.main.temp_max)}℃</p>
+                <h3>{data.weather[0].main}</h3>
+                <p className="temp">Temperature: {Math.round(data.main.temp)}℃</p>
+                <p className="feels-like">Feels like: {Math.round(data.main.feels_like)}</p>
+                <div>
+                    <p className="low">Low: {Math.round(data.main.temp_min)}℃</p>
+                    <p className="high">High: {Math.round(data.main.temp_max)}℃</p>
+                </div>
 
             </div>
         </div>

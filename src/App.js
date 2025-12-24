@@ -4,7 +4,7 @@ import "./css/app.css";
 
 function App() {
   return (
-    <div>
+    <div className="main-cont" >
       <WeatherComponent/>
     </div>
   );

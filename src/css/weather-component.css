@@ -1,0 +1,110 @@
+.weather-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Red Hat Display";
+}
+
+.weather-container h1 {
+    color: white;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.weather-container form {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.weather-container form input {
+    padding: 10px 60px 10px 15px;
+    border-radius: 20px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+}
+
+.weather-container form button {
+    padding: 10px 30px;
+    border-radius: 20px;
+    background: white;
+    color: black;
+    border: 1px solid black;
+    transition: all 0.3s;
+}
+
+.weather-container form button:hover {
+    background: grey;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.weather-container form input::placeholder {
+    color: white;
+}
+
+.weather-container h2 {
+    color: white;
+    font-weight: 300;
+    margin-bottom: 40px;
+}
+
+.weather-container h2 span {
+    color: goldenrod;
+    font-weight: 600;
+}
+
+.weather-container .loading-message {
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.weather-container .error-message {
+    color: firebrick;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+
+/*The weather details container*/
+.weather-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    padding: 10px 20px 50px 20px;
+    border-radius: 20px;
+    background-color: lightsteelblue;
+}
+
+.weather-details img {
+    max-width: 125px;
+}
+
+.weather-details p {
+    columns: black;
+}
+
+.weather-details h3 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.weather-details .temp {
+    font-size: 18px;
+}
+
+.weather-details .feels-like {
+    font-size: 16px;
+}
+
+.weather-details div {
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+    margin-top: 15px;
+}
