@@ -6,8 +6,10 @@ function WeatherComponent() {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(null)
-    const [location, setLocation] = useState("London");
+    const [location, setLocation] = useState("Ulverston");
+    const [newLocation, setNewLocation] = useState("");
 
+    //Function for calling weather API
     async function callWeatherData() {
         setIsLoading(true);
         setHasError(null)
@@ -22,6 +24,7 @@ function WeatherComponent() {
         }
     }
 
+    //This calls the API Function
     useEffect(() => {
         callWeatherData();
     }, [location])
@@ -38,11 +41,27 @@ function WeatherComponent() {
         return <p>There is no data</p>;
     }
 
+    function handleLocationChange({target}) {
+        setNewLocation(target.value);
+    }
+
+    function handleSearchSubmit(e) {
+        e.preventDefault();
+
+        setLocation(newLocation);
+
+        setNewLocation("");
+
+    }
+
 
     return (
         <div>
             <h1>The Weather</h1>
             <h2>This is the weather for {data.name}</h2>
+            <form onSubmit={handleSearchSubmit}>
+                <input type="text" placeholder="Search for location..." value={newLocation} onChange={handleLocationChange}/>
+            </form>
             <div>
                 <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="" />
                 <p>{data.weather[0].main}</p>
