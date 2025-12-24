@@ -3,6 +3,7 @@ import { fetchLocationData } from "../api/data";
 
 function WeatherComponent() {
 
+    //Controlled States
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(null)
@@ -41,14 +42,19 @@ function WeatherComponent() {
         return <p>There is no data</p>;
     }
 
+
+    //Function for setting handling input value
     function handleLocationChange({target}) {
         setNewLocation(target.value);
     }
 
+    //Function for handling submission of the form
     function handleSearchSubmit(e) {
         e.preventDefault();
 
-        setLocation(newLocation);
+        if(newLocation.length > 0) {
+            setLocation(newLocation);
+        }
 
         setNewLocation("");
 
@@ -60,7 +66,8 @@ function WeatherComponent() {
             <h1>The Weather</h1>
             <h2>This is the weather for {data.name}</h2>
             <form onSubmit={handleSearchSubmit}>
-                <input type="text" placeholder="Search for location..." value={newLocation} onChange={handleLocationChange}/>
+                <input required type="text" placeholder="Search for location..." value={newLocation} onChange={handleLocationChange}/>
+                <button type="submit">Search</button>
             </form>
             <div>
                 <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="" />
