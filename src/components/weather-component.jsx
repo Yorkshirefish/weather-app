@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchLocationData } from "../api/data";
+import "../css/weather-component.css";
 
 function WeatherComponent() {
 
@@ -15,14 +16,16 @@ function WeatherComponent() {
         setIsLoading(true);
         setHasError(null)
 
-        try {
-            const weatherData = await fetchLocationData(location);
-            setData(weatherData);
-        } catch(e) {
-            setHasError("Something went wrong");
-        } finally {
-            setIsLoading(false);
-        }
+        setTimeout(async () => {
+            try {
+                const weatherData = await fetchLocationData(location);
+                setData(weatherData);
+            } catch(e) {
+                setHasError("Something went wrong");
+            } finally {
+                setIsLoading(false);
+            }    
+        }, 1000)
     }
 
     //This calls the API Function
