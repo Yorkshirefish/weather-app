@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { fetchLocationData } from "../api/data";
 import LoadingComponent from "./loading-template";
 import ErrorComponent from "./error-template";
+import WeatherLayout from "./weather-layout";
+import WeatherCard from "./weather-card";
 import "../css/weather-component.css";
 import SearchBar from "./search-bar";
 
@@ -32,7 +34,7 @@ function WeatherComponent() {
                 setIsLoading(false);
             }    
         }, 1000);
-        
+
     }, [location]);
 
 
@@ -54,41 +56,13 @@ function WeatherComponent() {
     }
 
 
-    if(isLoading) {
-        return (
-            <LoadingComponent/>
-        )
-    }
-
-    if(hasError) {
-        return (
-                <ErrorComponent hasError={hasError}>
-                    <SearchBar handleSearchSubmit={handleSearchSubmit}/>
-                </ErrorComponent>
-        );
-    }
-
-    if(!data) {
-        return <p>There is no data</p>;
-    }
-
     return (
-        <div className="weather-container" >
-            <h1>The Weather</h1>
-            <SearchBar handleLocationChange={handleLocationChange} newLocation={newLocation} handleSearchSubmit={handleSearchSubmit}/>
-            <h2>This is the weather for <span>{data.name}</span></h2>
-            <div className="weather-details">
-                <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="" />
-                <h3>{data.weather[0].main}</h3>
-                <p className="temp">Temperature: {Math.round(data.main.temp)}℃</p>
-                <p className="feels-like">Feels like: {Math.round(data.main.feels_like)}℃</p>
-                <div>
-                    <p className="low">Low: {Math.round(data.main.temp_min)}℃</p>
-                    <p className="high">High: {Math.round(data.main.temp_max)}℃</p>
-                </div>
-
-            </div>
-        </div>
+        <WeatherLayout>
+            {isLoading && <LoadingComponent/>}
+            {hasError && <ErrorComponent hasError={hasError}><SearchBar handleSearchSubmit={handleSearchSubmit} newLocation={newLocation} handleLocationChange={handleLocationChange}/></ErrorComponent>}
+            {data && <WeatherCard data={data}><SearchBar handleSearchSubmit={handleSearchSubmit} newLocation={newLocation} handleLocationChange={handleLocationChange}/></WeatherCard>}
+            {!data && <p>There is no data</p>}
+        </WeatherLayout>
     )
 }
 
