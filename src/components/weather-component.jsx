@@ -44,17 +44,9 @@ function WeatherComponent() {
 
     if(hasError) {
         return (
-            <div className="weather-container">
-                <h1>The Weather</h1>
-                <p className="error-message">{hasError}</p>
-                <SearchBar handleLocationChange={handleLocationChange} newLocation={newLocation} handleSearchSubmit={handleSearchSubmit}/>
-            </div>
-            // <>
-            //     <ErrorComponent hasError={hasError} handleLocationChange={handleLocationChange}>
-            //         <SearchBar handleSearchSubmit={handleSearchSubmit}/>
-            //     </ErrorComponent>
-            // </>
-
+                <ErrorComponent hasError={hasError} handleLocationChange={handleLocationChange}>
+                    <SearchBar handleSearchSubmit={handleSearchSubmit}/>
+                </ErrorComponent>
         );
     }
 
