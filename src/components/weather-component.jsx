@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchLocationData } from "../api/data";
+import LoadingComponent from "./loading-template";
 import "../css/weather-component.css";
 
 function WeatherComponent() {
@@ -35,10 +36,7 @@ function WeatherComponent() {
 
     if(isLoading) {
         return (
-            <div className="weather-container">
-                <h1>The Weather</h1>
-                <p className="loading-message">Loading...</p>
-            </div>
+            <LoadingComponent/>
         )
     }
 
