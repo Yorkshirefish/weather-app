@@ -15,10 +15,13 @@ function WeatherComponent() {
     const [newLocation, setNewLocation] = useState("");
 
     //Function for calling weather API
-    async function callWeatherData() {
+
+    //This calls the API Function
+    useEffect(() => {
+
         setIsLoading(true);
         setHasError(null)
-
+    
         setTimeout(async () => {
             try {
                 const weatherData = await fetchLocationData(location);
@@ -28,31 +31,9 @@ function WeatherComponent() {
             } finally {
                 setIsLoading(false);
             }    
-        }, 1000)
-    }
-
-    //This calls the API Function
-    useEffect(() => {
-        callWeatherData();
-    }, [location])
-
-    if(isLoading) {
-        return (
-            <LoadingComponent/>
-        )
-    }
-
-    if(hasError) {
-        return (
-                <ErrorComponent hasError={hasError} handleLocationChange={handleLocationChange}>
-                    <SearchBar handleSearchSubmit={handleSearchSubmit}/>
-                </ErrorComponent>
-        );
-    }
-
-    if(!data) {
-        return <p>There is no data</p>;
-    }
+        }, 1000);
+        
+    }, [location]);
 
 
     //Function for setting handling input value
@@ -72,6 +53,24 @@ function WeatherComponent() {
 
     }
 
+
+    if(isLoading) {
+        return (
+            <LoadingComponent/>
+        )
+    }
+
+    if(hasError) {
+        return (
+                <ErrorComponent hasError={hasError}>
+                    <SearchBar handleSearchSubmit={handleSearchSubmit}/>
+                </ErrorComponent>
+        );
+    }
+
+    if(!data) {
+        return <p>There is no data</p>;
+    }
 
     return (
         <div className="weather-container" >
