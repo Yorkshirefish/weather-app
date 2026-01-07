@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { fetchLocationData } from "../api/data";
 import LoadingComponent from "./loading-template";
+import ErrorComponent from "./error-template";
 import "../css/weather-component.css";
+import SearchBar from "./search-bar";
 
 function WeatherComponent() {
 
@@ -45,11 +47,14 @@ function WeatherComponent() {
             <div className="weather-container">
                 <h1>The Weather</h1>
                 <p className="error-message">{hasError}</p>
-                <form onSubmit={handleSearchSubmit}>
-                    <input required type="text" placeholder="Search for location..." value={newLocation} onChange={handleLocationChange}/>
-                    <button type="submit">Search</button>
-                </form>
+                <SearchBar handleLocationChange={handleLocationChange} newLocation={newLocation} handleSearchSubmit={handleSearchSubmit}/>
             </div>
+            // <>
+            //     <ErrorComponent hasError={hasError} handleLocationChange={handleLocationChange}>
+            //         <SearchBar handleSearchSubmit={handleSearchSubmit}/>
+            //     </ErrorComponent>
+            // </>
+
         );
     }
 
@@ -79,10 +84,7 @@ function WeatherComponent() {
     return (
         <div className="weather-container" >
             <h1>The Weather</h1>
-            <form onSubmit={handleSearchSubmit}>
-                <input required type="text" placeholder="Search for location..." value={newLocation} onChange={handleLocationChange}/>
-                <button type="submit">Search</button>
-            </form>
+            <SearchBar handleLocationChange={handleLocationChange} newLocation={newLocation} handleSearchSubmit={handleSearchSubmit}/>
             <h2>This is the weather for <span>{data.name}</span></h2>
             <div className="weather-details">
                 <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="" />
